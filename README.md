@@ -109,6 +109,23 @@
 2. Альтернативный вариант:  
    а. Используйте любой другой код, главное, чтобы был самостоятельно создан Dockerfile.
 
+
+---
+<img width="1070" height="155" alt="image" src="https://github.com/user-attachments/assets/1c71b427-a9f1-4f78-bcf0-b44145c6638c" />
+<img width="853" height="238" alt="image" src="https://github.com/user-attachments/assets/b0697a0f-70f6-4120-9357-579e898dcfa8" />
+
+<img width="345" height="121" alt="image" src="https://github.com/user-attachments/assets/580f7499-e544-4067-9ef2-f4dd05feb5e3" />
+<img width="421" height="689" alt="image" src="https://github.com/user-attachments/assets/7d7a9dfe-f693-43d9-939b-0a0fbfd9a030" />
+
+
+<img width="859" height="406" alt="image" src="https://github.com/user-attachments/assets/e5318e4b-ad70-4f49-95ec-5f240c9fdc48" />
+<img width="1096" height="425" alt="image" src="https://github.com/user-attachments/assets/ffe3d9b5-625e-4452-9bb2-9db1ebda33ff" />
+<img width="1066" height="754" alt="image" src="https://github.com/user-attachments/assets/9cea4a16-f1d4-48f1-a16f-2a3f535df79d" />
+<img width="2548" height="1012" alt="image" src="https://github.com/user-attachments/assets/56d35e44-50fd-417e-b3ae-4b3fd0e5e68a" />
+<img width="901" height="255" alt="image" src="https://github.com/user-attachments/assets/075529ab-7f98-4a55-9080-fbe7f9d1e316" />
+
+---
+
 Ожидаемый результат:
 
 1. Git репозиторий с тестовым приложением и Dockerfile.
