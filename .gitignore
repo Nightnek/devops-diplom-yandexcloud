@@ -23,6 +23,9 @@ contrib/terraform/aws/credentials.tfvars
 *~
 vagrant/
 plugins/mitogen
+cloud-config.yaml
+devops.jpg
+index.html
 
 # Ansible inventory
 inventory/*
