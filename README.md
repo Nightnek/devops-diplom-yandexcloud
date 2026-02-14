@@ -40,8 +40,26 @@
 2. Подготовьте [backend](https://developer.hashicorp.com/terraform/language/backend) для Terraform:  
    а. Рекомендуемый вариант: S3 bucket в созданном ЯО аккаунте(создание бакета через TF)
    б. Альтернативный вариант:  [Terraform Cloud](https://app.terraform.io/)
+
+---
+<img width="800" height="233" alt="image" src="https://github.com/user-attachments/assets/733c2707-e90e-4cf6-a296-270b5c72b516" />
+
+---
+   
 3. Создайте конфигурацию Terrafrom, используя созданный бакет ранее как бекенд для хранения стейт файла. Конфигурации Terraform для создания сервисного аккаунта и бакета и основной инфраструктуры следует сохранить в разных папках.
+
+---
+<img width="845" height="241" alt="image" src="https://github.com/user-attachments/assets/628356ed-703f-4c8a-83a3-9e05650e318d" />
+
+---
+
 4. Создайте VPC с подсетями в разных зонах доступности.
+
+---
+<img width="1176" height="339" alt="image" src="https://github.com/user-attachments/assets/b52c2a60-eee9-419d-928d-befc482c32b3" />
+
+---
+
 5. Убедитесь, что теперь вы можете выполнить команды `terraform destroy` и `terraform apply` без дополнительных ручных действий.
 6. В случае использования [Terraform Cloud](https://app.terraform.io/) в качестве [backend](https://developer.hashicorp.com/terraform/language/backend) убедитесь, что применение изменений успешно проходит, используя web-интерфейс Terraform cloud.
 
@@ -61,6 +79,13 @@
    а. При помощи Terraform подготовить как минимум 3 виртуальных машины Compute Cloud для создания Kubernetes-кластера. Тип виртуальной машины следует выбрать самостоятельно с учётом требовании к производительности и стоимости. Если в дальнейшем поймете, что необходимо сменить тип инстанса, используйте Terraform для внесения изменений.  
    б. Подготовить [ansible](https://www.ansible.com/) конфигурации, можно воспользоваться, например [Kubespray](https://kubernetes.io/docs/setup/production-environment/tools/kubespray/)  
    в. Задеплоить Kubernetes на подготовленные ранее инстансы, в случае нехватки каких-либо ресурсов вы всегда можете создать их при помощи Terraform.
+
+---
+<img width="1117" height="585" alt="image" src="https://github.com/user-attachments/assets/5a2aeb30-b870-455c-a9cd-9f24efaa8b8a" />
+<img width="853" height="402" alt="image" src="https://github.com/user-attachments/assets/f302f34f-86b4-49c0-9fa8-ac86b1e354f2" />
+
+---
+   
 2. Альтернативный вариант: воспользуйтесь сервисом [Yandex Managed Service for Kubernetes](https://cloud.yandex.ru/services/managed-kubernetes)  
   а. С помощью terraform resource для [kubernetes](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/kubernetes_cluster) создать **региональный** мастер kubernetes с размещением нод в разных 3 подсетях      
   б. С помощью terraform resource для [kubernetes node group](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/kubernetes_node_group)
