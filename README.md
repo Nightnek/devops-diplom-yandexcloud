@@ -40,26 +40,8 @@
 2. Подготовьте [backend](https://developer.hashicorp.com/terraform/language/backend) для Terraform:  
    а. Рекомендуемый вариант: S3 bucket в созданном ЯО аккаунте(создание бакета через TF)
    б. Альтернативный вариант:  [Terraform Cloud](https://app.terraform.io/)
-
----
-<img width="800" height="233" alt="image" src="https://github.com/user-attachments/assets/733c2707-e90e-4cf6-a296-270b5c72b516" />
-
----
-   
 3. Создайте конфигурацию Terrafrom, используя созданный бакет ранее как бекенд для хранения стейт файла. Конфигурации Terraform для создания сервисного аккаунта и бакета и основной инфраструктуры следует сохранить в разных папках.
-
----
-<img width="845" height="241" alt="image" src="https://github.com/user-attachments/assets/628356ed-703f-4c8a-83a3-9e05650e318d" />
-
----
-
 4. Создайте VPC с подсетями в разных зонах доступности.
-
----
-<img width="1176" height="339" alt="image" src="https://github.com/user-attachments/assets/b52c2a60-eee9-419d-928d-befc482c32b3" />
-
----
-
 5. Убедитесь, что теперь вы можете выполнить команды `terraform destroy` и `terraform apply` без дополнительных ручных действий.
 6. В случае использования [Terraform Cloud](https://app.terraform.io/) в качестве [backend](https://developer.hashicorp.com/terraform/language/backend) убедитесь, что применение изменений успешно проходит, используя web-интерфейс Terraform cloud.
 
@@ -67,6 +49,16 @@
 
 1. Terraform сконфигурирован и создание инфраструктуры посредством Terraform возможно без дополнительных ручных действий, стейт основной конфигурации сохраняется в бакете или Terraform Cloud
 2. Полученная конфигурация инфраструктуры является предварительной, поэтому в ходе дальнейшего выполнения задания возможны изменения.
+---
+*** Создал бакет помощью кода Terraform: [bucket](https://github.com/Nightnek/devops-diplom-yandexcloud/tree/main/bucket) ***
+!<img width="800" height="233" alt="image" src="https://github.com/user-attachments/assets/733c2707-e90e-4cf6-a296-270b5c72b516" />
+
+*** .tfstate со следующего шаго отправляется в bucket ***
+!<img width="845" height="241" alt="image" src="https://github.com/user-attachments/assets/628356ed-703f-4c8a-83a3-9e05650e318d" />
+
+*** создал VPS с помощью [кода](https://github.com/Nightnek/devops-diplom-yandexcloud/tree/main/terraform)  ***
+*** .tfstate отправляется в bucket, как было показано выше. Так же, на основе шаблона inventory.tftpl создается файл hosts.yaml для следующего этапа ***
+!<img width="1176" height="339" alt="image" src="https://github.com/user-attachments/assets/b52c2a60-eee9-419d-928d-befc482c32b3" />
 
 ---
 ### Создание Kubernetes кластера
@@ -79,12 +71,6 @@
    а. При помощи Terraform подготовить как минимум 3 виртуальных машины Compute Cloud для создания Kubernetes-кластера. Тип виртуальной машины следует выбрать самостоятельно с учётом требовании к производительности и стоимости. Если в дальнейшем поймете, что необходимо сменить тип инстанса, используйте Terraform для внесения изменений.  
    б. Подготовить [ansible](https://www.ansible.com/) конфигурации, можно воспользоваться, например [Kubespray](https://kubernetes.io/docs/setup/production-environment/tools/kubespray/)  
    в. Задеплоить Kubernetes на подготовленные ранее инстансы, в случае нехватки каких-либо ресурсов вы всегда можете создать их при помощи Terraform.
-
----
-<img width="1117" height="585" alt="image" src="https://github.com/user-attachments/assets/5a2aeb30-b870-455c-a9cd-9f24efaa8b8a" />
-<img width="853" height="402" alt="image" src="https://github.com/user-attachments/assets/f302f34f-86b4-49c0-9fa8-ac86b1e354f2" />
-
----
    
 2. Альтернативный вариант: воспользуйтесь сервисом [Yandex Managed Service for Kubernetes](https://cloud.yandex.ru/services/managed-kubernetes)  
   а. С помощью terraform resource для [kubernetes](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/kubernetes_cluster) создать **региональный** мастер kubernetes с размещением нод в разных 3 подсетях      
@@ -95,6 +81,15 @@
 1. Работоспособный Kubernetes кластер.
 2. В файле `~/.kube/config` находятся данные для доступа к кластеру.
 3. Команда `kubectl get pods --all-namespaces` отрабатывает без ошибок.
+
+---
+*** На предыдущем этапе у меня создался файл hosts.yaml на основе шаблона inventory.tftpl. Поэтому просто переходим в папку [ansible/k8s](https://github.com/Nightnek/devops-diplom-yandexcloud/tree/main/ansible/k8s) и запусукаем развертывание кластера командой ansible-playbook -i ../hosts.yaml playbook.yml ***
+*** В ansible.cfg у меня стоит опция host_key_checking=False, без нее пришлось бы подтверждать соединение. на чем сваливалась бы установка ***
+
+!<img width="1117" height="585" alt="image" src="https://github.com/user-attachments/assets/5a2aeb30-b870-455c-a9cd-9f24efaa8b8a" />
+
+***  Посла установки зашел на мастер проверить состояние нод ***
+!<img width="853" height="402" alt="image" src="https://github.com/user-attachments/assets/f302f34f-86b4-49c0-9fa8-ac86b1e354f2" />
 
 ---
 ### Создание тестового приложения
@@ -109,30 +104,35 @@
 2. Альтернативный вариант:  
    а. Используйте любой другой код, главное, чтобы был самостоятельно создан Dockerfile.
 
-
----
-<img width="1070" height="155" alt="image" src="https://github.com/user-attachments/assets/1c71b427-a9f1-4f78-bcf0-b44145c6638c" />
-<img width="853" height="238" alt="image" src="https://github.com/user-attachments/assets/b0697a0f-70f6-4120-9357-579e898dcfa8" />
-
-<img width="345" height="121" alt="image" src="https://github.com/user-attachments/assets/580f7499-e544-4067-9ef2-f4dd05feb5e3" />
-<img width="421" height="689" alt="image" src="https://github.com/user-attachments/assets/7d7a9dfe-f693-43d9-939b-0a0fbfd9a030" />
-
-
-<img width="859" height="406" alt="image" src="https://github.com/user-attachments/assets/e5318e4b-ad70-4f49-95ec-5f240c9fdc48" />
-<img width="1096" height="425" alt="image" src="https://github.com/user-attachments/assets/ffe3d9b5-625e-4452-9bb2-9db1ebda33ff" />
-<img width="1066" height="754" alt="image" src="https://github.com/user-attachments/assets/9cea4a16-f1d4-48f1-a16f-2a3f535df79d" />
-<img width="2548" height="1012" alt="image" src="https://github.com/user-attachments/assets/56d35e44-50fd-417e-b3ae-4b3fd0e5e68a" />
-<img width="901" height="255" alt="image" src="https://github.com/user-attachments/assets/075529ab-7f98-4a55-9080-fbe7f9d1e316" />
-<img width="923" height="418" alt="image" src="https://github.com/user-attachments/assets/c63d2246-962d-402e-ae68-04bb6e6e75a0" />
-<img width="678" height="380" alt="image" src="https://github.com/user-attachments/assets/e4d5799c-bd71-4ed1-b292-7e514239e10e" />
-<img width="685" height="270" alt="image" src="https://github.com/user-attachments/assets/c1f508b4-8f85-4e1d-bae9-f372d507b480" />
-
----
-
 Ожидаемый результат:
 
 1. Git репозиторий с тестовым приложением и Dockerfile.
 2. Регистри с собранным docker image. В качестве регистри может быть DockerHub или [Yandex Container Registry](https://cloud.yandex.ru/services/container-registry), созданный также с помощью terraform.
+
+---
+*** Для приложения создан отдельный [репозиторий](https://github.com/Nightnek/nginx_for_dp-) ***
+*** Забилдил из [Dockerfile](https://github.com/Nightnek/nginx_for_dp-/blob/main/Dockerfile) ***
+!<img width="1070" height="155" alt="image" src="https://github.com/user-attachments/assets/1c71b427-a9f1-4f78-bcf0-b44145c6638c" />
+*** Запустил локально проверить ***
+!<img width="853" height="238" alt="image" src="https://github.com/user-attachments/assets/b0697a0f-70f6-4120-9357-579e898dcfa8" />
+
+*** Работает, приступаем к следующему шагу ***
+!<img width="345" height="121" alt="image" src="https://github.com/user-attachments/assets/580f7499-e544-4067-9ef2-f4dd05feb5e3" />
+
+*** Запушил в DockerHub ***
+!<img width="421" height="689" alt="image" src="https://github.com/user-attachments/assets/7d7a9dfe-f693-43d9-939b-0a0fbfd9a030" />
+
+*** Доступ извне к web-интерфейсу мониторинга и приложению будет обеспечиваться по схеме балансировщик YC --> ingress ngix ---> endpoint. Поэтому сначала устанавливаю устанавливаю ingress nginx , взял с официального сайта yaml-файл "https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.0/deploy/static/provider/cloud/deploy.yaml"
+Балансировщик YC, в текущей реализации, поднимается вместе с инфраструктурой.
+Модифицировал его в секции сервиса, т.к. по умолчанию он устанавливается с сервисом LoadBalacer, а на самостоятельно развернутом кластере в YC такой тип балансировщика не работает. Меняю тип сервиса на NodePort и настраиваю порт доступа. Балансировщик будет слушать порт 80 и перенаправлять траффик на NodePort. ***
+!<img width="859" height="406" alt="image" src="https://github.com/user-attachments/assets/e5318e4b-ad70-4f49-95ec-5f240c9fdc48" />
+
+*** Проверяю все ли запустилось ***
+!<img width="1096" height="425" alt="image" src="https://github.com/user-attachments/assets/ffe3d9b5-625e-4452-9bb2-9db1ebda33ff" />
+
+*** Дееплою мое  приложение манифестом [nginx.yaml](https://github.com/Nightnek/devops-diplom-yandexcloud/blob/main/monitoring/nginx.yaml).
+Проверяю, работает: ***
+!<img width="901" height="255" alt="image" src="https://github.com/user-attachments/assets/075529ab-7f98-4a55-9080-fbe7f9d1e316" />
 
 ---
 ### Подготовка cистемы мониторинга и деплой приложения
@@ -146,6 +146,16 @@
 
 Способ выполнения:
 1. Воспользоваться пакетом [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus), который уже включает в себя [Kubernetes оператор](https://operatorhub.io/) для [grafana](https://grafana.com/), [prometheus](https://prometheus.io/), [alertmanager](https://github.com/prometheus/alertmanager) и [node_exporter](https://github.com/prometheus/node_exporter). Альтернативный вариант - использовать набор helm чартов от [bitnami](https://github.com/bitnami/charts/tree/main/bitnami).
+
+---
+*** Для мониторинга использовал пакет [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus)
+Немного сверху поменял сервис [Grafana](https://github.com/Nightnek/devops-diplom-yandexcloud/blob/main/monitoring/grafana.yml) ***
+!<img width="1066" height="754" alt="image" src="https://github.com/user-attachments/assets/9cea4a16-f1d4-48f1-a16f-2a3f535df79d" />
+
+*** Приверяю, Grafana работает, мониторинг запустился ***
+!<img width="2548" height="1012" alt="image" src="https://github.com/user-attachments/assets/56d35e44-50fd-417e-b3ae-4b3fd0e5e68a" />
+
+---
 
 ### Деплой инфраструктуры в terraform pipeline
 
@@ -174,6 +184,22 @@
 1. Интерфейс ci/cd сервиса доступен по http.
 2. При любом коммите в репозиторие с тестовым приложением происходит сборка и отправка в регистр Docker образа.
 3. При создании тега (например, v1.0.0) происходит сборка и отправка с соответствующим label в регистри, а также деплой соответствующего Docker образа в кластер Kubernetes.
+
+---
+
+*** Для ci/cd испльзовал web-версию GitHub Actions.
+Устанавливаю и запускаю раннер на master-ноде кластера: ***
+!<img width="955" height="520" alt="image" src="https://github.com/user-attachments/assets/06fc336e-3bc8-4baf-9757-1fdd75a7efd0" />
+
+*** Прописал [workflow](https://github.com/Nightnek/nginx_for_dp-/blob/main/.github/workflows/main.yml), добавил необходимые секреты. Проверяю. Билдится, отправляется в DockeHub, Deploy пропущен. Потому что коммитил без тега с указанием версии: ***
+<img width="923" height="418" alt="image" src="https://github.com/user-attachments/assets/c63d2246-962d-402e-ae68-04bb6e6e75a0" />
+
+*** Закоммитил с тэгом "v1.0.1", билдится, деплоится: ***
+<img width="678" height="380" alt="image" src="https://github.com/user-attachments/assets/e4d5799c-bd71-4ed1-b292-7e514239e10e" />
+
+*** Новая версия приложения успешно задеплоилась на сервере: ***
+<img width="685" height="270" alt="image" src="https://github.com/user-attachments/assets/c1f508b4-8f85-4e1d-bae9-f372d507b480" />
+
 
 ---
 ## Что необходимо для сдачи задания?
