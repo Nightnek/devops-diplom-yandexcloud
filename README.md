@@ -89,7 +89,7 @@ _создал VPS с помощью [кода](https://github.com/Nightnek/devop
 #### Решение  
 
 _На предыдущем этапе у меня создался файл hosts.yaml на основе шаблона inventory.tftpl. Поэтому просто переходим в папку [ansible/k8s](https://github.com/Nightnek/devops-diplom-yandexcloud/tree/main/ansible/k8s) и запусукаем развертывание кластера командой ansible-playbook -i ../hosts.yaml playbook.yml_  
-_В ansible.cfg у меня стоит опция host_key_checking=False, без нее пришлось бы подтверждать соединение. на чем сваливалась бы установка_  
+_В ansible.cfg у меня стоит опция host_key_checking=False, без нее пришлось бы подтверждать соединение на чем сваливалась бы установка_  
 <img width="1117" height="585" alt="image" src="https://github.com/user-attachments/assets/5a2aeb30-b870-455c-a9cd-9f24efaa8b8a" />
 
 _Посла установки зашел на мастер проверить состояние нод_  
@@ -160,7 +160,7 @@ _Для мониторинга использовал пакет [kube-prometheu
 Немного сверху поменял сервис [Grafana](https://github.com/Nightnek/devops-diplom-yandexcloud/blob/main/monitoring/grafana.yml)_  
 <img width="1066" height="754" alt="image" src="https://github.com/user-attachments/assets/9cea4a16-f1d4-48f1-a16f-2a3f535df79d" />
   
-_Приверяю, Grafana работает, мониторинг запустился_  
+_Проверяю, Grafana работает, мониторинг запустился_  
 <img width="2548" height="1012" alt="image" src="https://github.com/user-attachments/assets/56d35e44-50fd-417e-b3ae-4b3fd0e5e68a" />
 
 ---
