@@ -52,15 +52,15 @@
 
 #### Решение
 
-Создал бакет помощью кода Terraform: [bucket](https://github.com/Nightnek/devops-diplom-yandexcloud/tree/main/bucket)
-!<img width="800" height="233" alt="image" src="https://github.com/user-attachments/assets/733c2707-e90e-4cf6-a296-270b5c72b516" />
+Создал бакет помощью кода Terraform: [bucket](https://github.com/Nightnek/devops-diplom-yandexcloud/tree/main/bucket)  
+<img width="800" height="233" alt="image" src="https://github.com/user-attachments/assets/733c2707-e90e-4cf6-a296-270b5c72b516" />
 
- .tfstate со следующего шаго отправляется в bucket 
-!<img width="845" height="241" alt="image" src="https://github.com/user-attachments/assets/628356ed-703f-4c8a-83a3-9e05650e318d" />
+ .tfstate со следующего шаго отправляется в bucket  
+ <img width="845" height="241" alt="image" src="https://github.com/user-attachments/assets/628356ed-703f-4c8a-83a3-9e05650e318d" />
 
-создал VPS с помощью [кода](https://github.com/Nightnek/devops-diplom-yandexcloud/tree/main/terraform) 
- .tfstate отправляется в bucket, как было показано выше. Так же, на основе шаблона inventory.tftpl создается файл hosts.yaml для следующего этапа 
-!<img width="1176" height="339" alt="image" src="https://github.com/user-attachments/assets/b52c2a60-eee9-419d-928d-befc482c32b3" />
+создал VPS с помощью [кода](https://github.com/Nightnek/devops-diplom-yandexcloud/tree/main/terraform)  
+ .tfstate отправляется в bucket, как было показано выше. Так же, на основе шаблона inventory.tftpl создается файл hosts.yaml для следующего этапа  
+ <img width="1176" height="339" alt="image" src="https://github.com/user-attachments/assets/b52c2a60-eee9-419d-928d-befc482c32b3" />
 
 
 ### Создание Kubernetes кластера
